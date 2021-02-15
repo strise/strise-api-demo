@@ -91,12 +91,14 @@ const App = () => {
             API
             <ApiSelect api={api} setApi={setApi} />
           </div>
-          <div>
+          {api !== Api.PROD && (
             <div>
-              Publish
+              <div>
+                Publish
             </div>
-            <Publish teamId={teamId} />
-          </div>
+              <Publish teamId={teamId} />
+            </div>
+          )}
           <div>
             <div>
               Dry run
