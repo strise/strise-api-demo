@@ -6,7 +6,7 @@ A deployed version of the app can be found [here](https://files.strise.ai/graphq
 
 ## GraphQL WebSocket Protocol
 
-The Strise Process API adheres to the [graphql-transport-ws](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md) protocol and clients must follow this specification. The [`graphl-ws`](https://github.com/enisdenjo/graphql-ws) NPM package supports this out of the box.
+The Strise Process API adheres to the [graphql-transport-ws](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md) protocol and clients must follow this specification. The [`graphql-ws`](https://github.com/enisdenjo/graphql-ws) NPM package supports this out of the box.
 
 ## Authentication
 
