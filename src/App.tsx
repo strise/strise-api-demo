@@ -81,6 +81,14 @@ const App = () => {
             API
             <ApiSelect api={api} setApi={setApi} />
           </div>
+          {api !== Api.PROD && (
+            <div>
+              <div>
+                Publish
+            </div>
+              <Publish teamId={teamId} />
+            </div>
+          )}
           <div>
             <div>
               Dry run
