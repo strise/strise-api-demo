@@ -32,4 +32,4 @@ In this example [`graphql-codegen`](https://graphql-code-generator.com/) is used
 ## Development
 
 1. Install dependencies `npm install`
-2. Start the development server `npm start`
+2. Start the development server `npm run start:stage`
