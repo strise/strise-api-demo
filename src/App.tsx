@@ -1,6 +1,6 @@
 import React from 'react'
 import { useClient } from './utils/client'
-import { ApolloProvider } from '@apollo/client'
+import { ApolloProvider, useMutation } from '@apollo/client'
 import 'antd/dist/antd.css'
 import { Button, Input, Layout, PageHeader, Checkbox } from 'antd'
 import { useLocalStorageState } from './utils/hooks'
@@ -14,6 +14,16 @@ import { Api, ApiSelect } from './components/Api'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 const COMPANY_EVENT = loader('./graphql/companyEvent.graphql')
+const PUBLISH = loader('./graphql/publish.graphql')
+
+const Publish = ({ teamId }: { teamId: string }) => {
+  const [publish, { loading }] = useMutation(PUBLISH, { variables: { team: teamId } })
+  return (
+    <Button onClick={() => publish()} loading={loading}>
+      Publish
+    </Button>
+  )
+}
 
 const App = () => {
   const [api, setApi] = useLocalStorageState<Api>('api', Api.PROD)
@@ -72,7 +82,7 @@ const App = () => {
         )}
       />
       <Layout.Content style={{ padding: '0 50px' }}>
-        <div style={{ display: 'flex', flexDirection: 'row', width: '500px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', width: '750px' }}>
           <div style={{ flexGrow: 1 }}>
             Access token
             <Input value={token} onChange={(e) => setToken(e.target.value)} />
@@ -83,12 +93,18 @@ const App = () => {
           </div>
           <div>
             <div>
+              Publish
+            </div>
+            <Publish teamId={teamId} />
+          </div>
+          <div>
+            <div>
               Dry run
             </div>
             <Checkbox value={dryRun} onChange={onDryRunChange} />
           </div>
         </div>
-        <div style={{width: '500px'}}>
+        <div style={{width: '750px'}}>
           <Teams teamId={teamId} setTeamId={setTeamId} />
         </div>
         <div style={{ marginTop: '1em', marginBottom: '1em' }}>
