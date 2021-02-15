@@ -5,13 +5,12 @@ import { TeamsQuery } from '../types/graphql'
 import { Input, Select } from 'antd'
 
 const TEAMS = loader('../graphql/teams.graphql')
-console.log(TEAMS)
 
 export const Teams = ({ teamId, setTeamId }: { teamId: string, setTeamId: React.Dispatch<React.SetStateAction<string>> }) => {
   const onChange = React.useCallback((value: string) => setTeamId(value), [setTeamId])
 
   const { data, loading } = useQuery<TeamsQuery>(TEAMS)
-  console.log(data, loading)
+
   const teams = data?.teams.edges.map(({ node }) => node)
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>

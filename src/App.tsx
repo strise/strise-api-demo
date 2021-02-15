@@ -22,7 +22,6 @@ const App = () => {
   const client = useClient(api, token)
   const [subscription, setSubscription] = React.useState<ZenObservable.Subscription | null>(null)
   const [events, setEvents] = React.useState<CompanyEventFragment[]>([])
-  console.log('a', client)
 
   const start = React.useCallback(() => {
     console.log('Start!', teamId)
@@ -38,14 +37,6 @@ const App = () => {
 
     setSubscription(subscription)
   }, [client, teamId])
-
-  React.useEffect(() => {
-    // If we get a new client and blabla
-    //if (unsubFn) {
-    //  start()
-    //}
-    console.log(client, subscription)
-  }, [client, subscription])
 
   const stop = React.useCallback(() => {
     console.log('Stop!', teamId)
