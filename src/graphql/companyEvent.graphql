@@ -1,0 +1,39 @@
+fragment Company on Company {
+  id
+  name
+  organizationNumber
+  tags  {
+    edges {
+      node {
+        name
+      }
+    }
+  }
+  status
+}
+
+fragment Attribute on Attribute {
+  key
+  value
+}
+
+fragment CompanyEvent on CompanyEvent {
+  id
+  title
+  striseUrl
+  created
+  published
+  kind
+  company {
+    ...Company
+  }
+  meta {
+    ...Attribute
+  }
+}
+
+subscription companyEvent($team: ID!, $dryRun: Boolean) {
+  companyEvent(team: $team, dryRun: $dryRun) {
+    ...CompanyEvent
+  }
+}

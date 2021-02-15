@@ -1,0 +1,15 @@
+fragment Team on Team {
+  id
+  name
+  created
+}
+
+query teams {
+  teams {
+    edges {
+      node {
+        ...Team
+      }
+    }
+  }
+}

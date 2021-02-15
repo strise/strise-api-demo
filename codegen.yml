@@ -1,0 +1,10 @@
+overwrite: true
+skipGraphQLImport: true
+generates:
+  ./src/types/graphql.ts:
+    schema: ${API}
+    documents:
+      - "./src/graphql/*.graphql"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
