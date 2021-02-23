@@ -1,6 +1,6 @@
 import React from 'react'
 import { useClient } from './utils/client'
-import { ApolloProvider } from '@apollo/client'
+import { ApolloProvider, useMutation } from '@apollo/client'
 import 'antd/dist/antd.css'
 import { Button, Input, Layout, PageHeader, Checkbox } from 'antd'
 import { useLocalStorageState } from './utils/hooks'
@@ -14,6 +14,16 @@ import { Api, ApiSelect } from './components/Api'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 const COMPANY_EVENT = loader('./graphql/companyEvent.graphql')
+const PUBLISH = loader('./graphql/publish.graphql')
+
+const Publish = ({ teamId }: { teamId: string }) => {
+  const [publish, { loading }] = useMutation(PUBLISH, { variables: { team: teamId } })
+  return (
+    <Button onClick={() => publish()} loading={loading}>
+      Publish
+    </Button>
+  )
+}
 
 const App = () => {
   const [api, setApi] = useLocalStorageState<Api>('api', Api.PROD)

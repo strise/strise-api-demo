@@ -1,0 +1,10 @@
+mutation publish($team: ID) {
+  generateAndPublishTestEvents(team: $team, size: 10, organizationNumbers: []) {
+    company {
+      name
+      status
+    }
+    kind
+    title
+  }
+}
