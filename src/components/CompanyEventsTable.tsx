@@ -38,7 +38,7 @@ const columns: ColumnsType<CompanyEventFragment> = [
     title: 'Title',
     dataIndex: 'title',
     key: 'title',
-    render: (title, event) => <NewTabLink url={event.striseUrl}>{title}</NewTabLink>
+    render: (title, event) => event.striseUrl ? <NewTabLink url={event.striseUrl}>{title}</NewTabLink> : title
   },
   {
     title: 'Kind',
