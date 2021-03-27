@@ -1,37 +1,11 @@
 import React from 'react'
-import { Button, Table } from 'antd'
+import { Table } from 'antd'
 import { companyIdToStriseUrl } from '../utils/url'
-import { AttributeFragment, CompanyEventFragment, CompanyFragment } from '../types/graphql'
+import { CompanyEventFragment, CompanyFragment } from '../types/graphql'
 import moment from 'moment'
 import { ColumnsType } from 'antd/lib/table'
 
 const NewTabLink = ({ url, children }: { url: string, children: React.ReactNode }) => <a href={url} target='_blank' rel='noreferrer'>{children}</a>
-
-const MetaBox = ({ meta }: { meta: AttributeFragment[] }) => {
-  const [open, setOpen] = React.useState(false)
-  if (meta.length === 0) return <>No meta</>
-  if (!open) {
-    return (
-      <Button onClick={() => setOpen(true)} type='text'>
-        Show meta
-      </Button>
-    )
-  } else {
-    return (
-      <>
-        <Button onClick={() => setOpen(false)} type='text'>
-          Hide meta
-        </Button>
-        {meta.map(({ key, value }) => (
-          <div key={key}>
-            {key}: {value}
-          </div>
-        ))}
-      </>
-    )
-  }
-}
-
 
 const columns: ColumnsType<CompanyEventFragment> = [
   {
@@ -76,11 +50,25 @@ const columns: ColumnsType<CompanyEventFragment> = [
     render: (time: string) => moment(time).fromNow()
   },
   {
-    title: 'Meta',
-    dataIndex: 'meta',
-    key: 'meta',
-    render: (meta: AttributeFragment[]) => <MetaBox meta={meta} />
+    title: 'Trigger',
+    dataIndex: 'trigger',
+    key: 'trigger',
+    render: (_, event) => {
+      switch (event.__typename) {
+        case 'AnnouncementEvent':
+          return event.announcementTrigger
+        case 'CreditEvent':
+          return event.creditTrigger
+        case 'FlagEvent':
+          return event.flagTrigger
+      }
+    }
   },
+  {
+    title: 'Code',
+    dataIndex: 'code',
+    key: 'code'
+  }
 ]
 
 export const CompanyEventsTable = ({ events }: { events: CompanyEventFragment[] }) => {

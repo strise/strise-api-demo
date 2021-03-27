@@ -8,7 +8,6 @@ import { CompanyEventsTable } from './components/CompanyEventsTable'
 import { loader } from 'graphql.macro'
 import { CompanyEventFragment, CompanyEventSubscription } from './types/graphql'
 import { Teams } from './components/Team'
-import { removeKeyFromObject } from './utils/object'
 import { Logo } from './components/Logo'
 import { Api, ApiSelect } from './components/Api'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
@@ -42,7 +41,7 @@ const App = () => {
         const event = response.data?.companyEvent
         if (!event) return
         console.info('Received event', event.id)
-        setEvents((prevEvents) => [{ ...event, key: event.id + event.created, meta: removeKeyFromObject('__typename', event.meta) }, ...prevEvents])
+        setEvents((prevEvents) => [{ ...event, key: event.id + event.created }, ...prevEvents])
       })
 
     setSubscription(subscription)
