@@ -1,0 +1,5 @@
+mutation companyAssign($team: ID! $company: ID! $user: ID!) {
+  companyAssign(team: $team company: $company user: $user) {
+    success
+  }
+}

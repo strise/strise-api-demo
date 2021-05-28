@@ -1,0 +1,22 @@
+#import "./UserFragment.graphql"
+
+fragment Company on Company {
+  id
+  name
+  organizationNumber
+  tags  {
+    edges {
+      node {
+        name
+      }
+    }
+  }
+  assignees {
+    edges {
+      node {
+        ...User
+      }
+    }
+  }
+  status
+}

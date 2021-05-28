@@ -1,39 +1,19 @@
 import React from 'react'
-import { Button, Table } from 'antd'
 import { companyIdToStriseUrl } from '../utils/url'
-import { AttributeFragment, CompanyEventFragment, CompanyFragment } from '../types/graphql'
+import { CompanyEventFragment, CompanyFragment } from '../types/graphql'
 import moment from 'moment'
 import { ColumnsType } from 'antd/lib/table'
+import { FilterableTable } from './FilterableTable'
 
-const NewTabLink = ({ url, children }: { url: string, children: React.ReactNode }) => <a href={url} target='_blank' rel='noreferrer'>{children}</a>
-
-const MetaBox = ({ meta }: { meta: AttributeFragment[] }) => {
-  const [open, setOpen] = React.useState(false)
-  if (meta.length === 0) return <>No meta</>
-  if (!open) {
-    return (
-      <Button onClick={() => setOpen(true)} type='text'>
-        Show meta
-      </Button>
-    )
-  } else {
-    return (
-      <>
-        <Button onClick={() => setOpen(false)} type='text'>
-          Hide meta
-        </Button>
-        {meta.map(({ key, value }) => (
-          <div key={key}>
-            {key}: {value}
-          </div>
-        ))}
-      </>
-    )
-  }
-}
-
+export const NewTabLink = ({ url, children }: { url: string, children: React.ReactNode }) => <a href={url} target='_blank' rel='noreferrer'>{children}</a>
 
 const columns: ColumnsType<CompanyEventFragment> = [
+  {
+    title: 'Type',
+    dataIndex: '__typename',
+    key: 'type',
+    render: (typename: string) => typename.replace("Event", "")
+  },
   {
     title: 'Title',
     dataIndex: 'title',
@@ -41,21 +21,16 @@ const columns: ColumnsType<CompanyEventFragment> = [
     render: (title, event) => event.striseUrl ? <NewTabLink url={event.striseUrl}>{title}</NewTabLink> : title
   },
   {
-    title: 'Kind',
-    dataIndex: 'kind',
-    key: 'kind'
-  },
-  {
     title: 'Company',
     dataIndex: 'company',
     key: 'company',
-    render: (company: CompanyFragment) => <NewTabLink url={companyIdToStriseUrl(company.id)}>{company.name}</NewTabLink>
-  },
-  {
-    title: 'Company Status',
-    dataIndex: 'company',
-    key: 'companyStatus',
-    render: (company: CompanyFragment) => <>{company.status}</>
+    render: (company: CompanyFragment) => (
+      <>
+        <NewTabLink url={companyIdToStriseUrl(company.id)}>{company.name}</NewTabLink>
+        <br />
+        {company.status}
+      </>
+    )
   },
   {
     title: 'Company Tags',
@@ -76,13 +51,51 @@ const columns: ColumnsType<CompanyEventFragment> = [
     render: (time: string) => moment(time).fromNow()
   },
   {
+    title: 'Trigger',
+    key: 'trigger',
+    render: (_: any, event) => {
+      switch (event.__typename) {
+        case 'AnnouncementEvent':
+          return event.announcementEventTrigger
+        case 'FlagEvent':
+          return event.flagEventTrigger
+        case 'CreditEvent':
+          return event.creditEventTrigger
+      }
+    }
+  },
+  {
     title: 'Meta',
-    dataIndex: 'meta',
     key: 'meta',
-    render: (meta: AttributeFragment[]) => <MetaBox meta={meta} />
+    render: (_: any, event) => {
+      switch (event.__typename) {
+        case 'AnnouncementEvent':
+          return (
+            <>
+              Code: {event.code}
+              <br />
+              Source: {event.source}
+            </>
+          )
+        case 'FlagEvent':
+          return (
+            <>
+              Code: {event.code}
+              <br />
+              Severity: {event.severity}
+            </>
+          )
+        case 'CreditEvent':
+          return (
+            <>
+              Code: {event.code}
+            </>
+          )
+      }
+    }
   },
 ]
 
 export const CompanyEventsTable = ({ events }: { events: CompanyEventFragment[] }) => {
-  return <Table columns={columns} dataSource={events} />
+  return <FilterableTable columns={columns} data={events} />
 }

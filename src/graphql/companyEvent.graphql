@@ -1,34 +1,27 @@
-fragment Company on Company {
-  id
-  name
-  organizationNumber
-  tags  {
-    edges {
-      node {
-        name
-      }
-    }
-  }
-  status
-}
-
-fragment Attribute on Attribute {
-  key
-  value
-}
+#import "./fragments/CompanyFragment.graphql"
 
 fragment CompanyEvent on CompanyEvent {
   id
   title
   striseUrl
-  created
-  published
-  kind
+  createdAt
+  publishedAt
   company {
     ...Company
   }
-  meta {
-    ...Attribute
+  ... on AnnouncementEvent {
+    code
+    announcementEventTrigger: trigger
+    source
+  }
+  ... on CreditEvent {
+    code
+    creditEventTrigger: trigger
+  }
+  ... on FlagEvent {
+    code
+    flagEventTrigger: trigger
+    severity
   }
 }
 

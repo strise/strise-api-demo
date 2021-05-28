@@ -1,7 +1,7 @@
 fragment Team on Team {
   id
   name
-  created
+  createdAt
 }
 
 query teams {

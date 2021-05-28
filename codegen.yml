@@ -4,7 +4,7 @@ generates:
   ./src/types/graphql.ts:
     schema: ${API}
     documents:
-      - "./src/graphql/*.graphql"
+      - "./src/graphql/**/*.graphql"
     plugins:
       - "typescript"
       - "typescript-operations"
