@@ -1,0 +1,11 @@
+#import "./fragments/CompanyFragment.graphql"
+
+query companies($team: ID!) {
+  companies(team: $team) {
+    edges {
+      node {
+        ...Company
+      }
+    }
+  }
+}

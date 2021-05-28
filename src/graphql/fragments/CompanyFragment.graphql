@@ -1,0 +1,13 @@
+fragment Company on Company {
+  id
+  name
+  organizationNumber
+  tags  {
+    edges {
+      node {
+        name
+      }
+    }
+  }
+  status
+}

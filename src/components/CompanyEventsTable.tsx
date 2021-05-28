@@ -5,7 +5,7 @@ import { CompanyEventFragment, CompanyFragment } from '../types/graphql'
 import moment from 'moment'
 import { ColumnsType } from 'antd/lib/table'
 
-const NewTabLink = ({ url, children }: { url: string, children: React.ReactNode }) => <a href={url} target='_blank' rel='noreferrer'>{children}</a>
+export const NewTabLink = ({ url, children }: { url: string, children: React.ReactNode }) => <a href={url} target='_blank' rel='noreferrer'>{children}</a>
 
 const columns: ColumnsType<CompanyEventFragment> = [
   {

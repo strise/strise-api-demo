@@ -1,16 +1,4 @@
-fragment Company on Company {
-  id
-  name
-  organizationNumber
-  tags  {
-    edges {
-      node {
-        name
-      }
-    }
-  }
-  status
-}
+#import "./fragments/CompanyFragment.graphql"
 
 fragment CompanyEvent on CompanyEvent {
   id

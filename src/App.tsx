@@ -26,7 +26,7 @@ const Publish = ({ teamId }: { teamId: string }) => {
   )
 }
 
-interface AppContext {
+interface AppContextInterface {
   token: string
   setToken: React.Dispatch<React.SetStateAction<string>>
   teamId: string
@@ -34,7 +34,7 @@ interface AppContext {
   api: Api
   setApi: React.Dispatch<React.SetStateAction<Api>>
 }
-const AppContext = React.createContext({} as any as AppContext)
+export const AppContext = React.createContext({} as any as AppContextInterface)
 
 const Subscription = () => {
   const client = useApolloClient()
