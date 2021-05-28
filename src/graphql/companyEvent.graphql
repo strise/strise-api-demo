@@ -12,23 +12,28 @@ fragment Company on Company {
   status
 }
 
-fragment Attribute on Attribute {
-  key
-  value
-}
-
 fragment CompanyEvent on CompanyEvent {
   id
   title
   striseUrl
-  created
-  published
-  kind
+  createdAt
+  publishedAt
   company {
     ...Company
   }
-  meta {
-    ...Attribute
+  ... on AnnouncementEvent {
+    code
+    announcementEventTrigger: trigger
+    source
+  }
+  ... on CreditEvent {
+    code
+    creditEventTrigger: trigger
+  }
+  ... on FlagEvent {
+    code
+    flagEventTrigger: trigger
+    severity
   }
 }
 
