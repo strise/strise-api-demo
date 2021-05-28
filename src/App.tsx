@@ -1,8 +1,8 @@
 import React from 'react'
 import { useClient } from './utils/client'
-import { ApolloProvider, useMutation } from '@apollo/client'
+import { ApolloProvider, useApolloClient, useMutation } from '@apollo/client'
 import 'antd/dist/antd.css'
-import { Button, Input, Layout, PageHeader, Checkbox } from 'antd'
+import { Button, Input, Layout, PageHeader, Checkbox, Drawer, Menu } from 'antd'
 import { useLocalStorageState } from './utils/hooks'
 import { CompanyEventsTable } from './components/CompanyEventsTable'
 import { loader } from 'graphql.macro'
@@ -11,6 +11,8 @@ import { Teams } from './components/Team'
 import { Logo } from './components/Logo'
 import { Api, ApiSelect } from './components/Api'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
+import { BrowserRouter as Router, Switch, Route, Link, useLocation } from 'react-router-dom'
+import { Companies } from './Companies'
 
 const COMPANY_EVENT = loader('./graphql/companyEvent.graphql')
 const PUBLISH = loader('./graphql/publish.graphql')
@@ -24,13 +26,24 @@ const Publish = ({ teamId }: { teamId: string }) => {
   )
 }
 
-const App = () => {
-  const [api, setApi] = useLocalStorageState<Api>('api', Api.PROD)
-  const [teamId, setTeamId] = useLocalStorageState<string>('teamId', '')
-  const [token, setToken] = useLocalStorageState<string>('token̈́', '')
-  const client = useClient(api, token)
+interface AppContext {
+  token: string
+  setToken: React.Dispatch<React.SetStateAction<string>>
+  teamId: string
+  setTeamId: React.Dispatch<React.SetStateAction<string>>
+  api: Api
+  setApi: React.Dispatch<React.SetStateAction<Api>>
+}
+const AppContext = React.createContext({} as any as AppContext)
+
+const Subscription = () => {
+  const client = useApolloClient()
+  const { teamId, api } = React.useContext(AppContext)
   const [subscription, setSubscription] = React.useState<ZenObservable.Subscription | null>(null)
   const [events, setEvents] = React.useState<CompanyEventFragment[]>([])
+
+  const [dryRun, setDryRun] = React.useState<boolean>(false)
+  const onDryRunChange = React.useCallback((e: CheckboxChangeEvent) => setDryRun(e.target.checked), [setDryRun])
 
   const start = React.useCallback(() => {
     console.log('Start!', teamId)
@@ -54,67 +67,116 @@ const App = () => {
   }, [subscription, teamId])
 
   const clear = React.useCallback(() => setEvents([]), [])
+  return (
+    <>
+      <div style={{display: 'flex', marginBottom: '1em'}}>
+        {!subscription ? (
+          <Button onClick={() => start()}>
+            Start
+          </Button>
+        ) : (
+          <Button onClick={() => stop()}>
+            Stop
+          </Button>
+        )}
+        <Button onClick={() => clear()}>
+          Clear
+        </Button>
+        {api !== Api.PROD && (
+          <div style={{marginLeft: '1em'}}>
+            <Publish teamId={teamId} />
+          </div>
+        )}
+        <div style={{marginLeft: '1em'}}>
+          <Checkbox value={dryRun} onChange={onDryRunChange}>
+            Dry run
+          </Checkbox>
+        </div>
+      </div>
+      <CompanyEventsTable events={events} />
+    </>
+  )
+}
 
-  const [dryRun, setDryRun] = React.useState<boolean>(false)
-  const onDryRunChange = React.useCallback((e: CheckboxChangeEvent) => setDryRun(e.target.checked), [setDryRun])
+const SettingsDrawer = () => {
+  const { api, setApi, teamId, setTeamId, token, setToken } = React.useContext(AppContext)
+  const [open, setOpen] = React.useState(false)
+  const onOpen = () => setOpen(true)
+  const onClose = () => setOpen(false)
+  return (
+    <>
+      <Button type='primary' onClick={onOpen}>
+        Settings
+      </Button>
+      <Drawer title='Settings' placement='right' closable={false} onClose={onClose} visible={open}>
+        <div style={{ flexGrow: 1 }}>
+          Access token
+          <Input value={token} onChange={(e) => setToken(e.target.value)} />
+        </div>
+        <div style={{ flexGrow: 1 }}>
+          API
+          <ApiSelect api={api} setApi={setApi} />
+        </div>
+        <Teams teamId={teamId} setTeamId={setTeamId} />
+      </Drawer>
+    </>
+  )
+}
+
+const AppMenu = () => {
+  const location = useLocation()
+  return (
+    <Menu selectedKeys={[location.pathname]} mode='horizontal' style={{marginLeft: '1em'}}>
+      <Menu.Item key='/'>
+        <Link to='/'>
+          Events
+        </Link>
+      </Menu.Item>
+      <Menu.Item key='/companies'>
+        <Link to='/companies'>
+          Companies
+        </Link>
+      </Menu.Item>
+    </Menu>
+  )
+}
+
+const App = () => {
+  const [api, setApi] = useLocalStorageState<Api>('api', Api.PROD)
+  const [teamId, setTeamId] = useLocalStorageState<string>('teamId', '')
+  const [token, setToken] = useLocalStorageState<string>('token̈́', '')
+  const client = useClient(api, token)
+
 
   return (
     <ApolloProvider client={client}>
-      <PageHeader
-        className="site-page-header"
-        title={(
-          <div style={{display: 'flex'}}>
-            <Logo />
-            <div style={{ marginLeft: '1em '}}>
-              GraphQL Subscriptions Example
+      <AppContext.Provider value={{api, setApi, teamId, setTeamId, token, setToken}}>
+        <Router>
+          <PageHeader
+            className="site-page-header"
+            title={(
+              <div style={{ display: 'flex', width: '95vw' }}>
+                <Logo />
+                <div style={{ marginLeft: '1em ', flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+                  GraphQL Process API Example
+                  <AppMenu />
+                </div>
+                <div>
+                  <SettingsDrawer />
+                </div>
+              </div>
+            )}
+          />
+          <Layout.Content style={{ padding: '0 50px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', width: '500px' }}>
             </div>
-          </div>
-        )}
-      />
-      <Layout.Content style={{ padding: '0 50px' }}>
-        <div style={{ display: 'flex', flexDirection: 'row', width: '500px' }}>
-          <div style={{ flexGrow: 1 }}>
-            Access token
-            <Input value={token} onChange={(e) => setToken(e.target.value)} />
-          </div>
-          <div style={{ flexGrow: 1 }}>
-            API
-            <ApiSelect api={api} setApi={setApi} />
-          </div>
-          {api !== Api.PROD && (
-            <div>
-              <div>
-                Publish
-            </div>
-              <Publish teamId={teamId} />
-            </div>
-          )}
-          <div>
-            <div>
-              Dry run
-            </div>
-            <Checkbox value={dryRun} onChange={onDryRunChange} />
-          </div>
-        </div>
-        <div style={{width: '500px'}}>
-          <Teams teamId={teamId} setTeamId={setTeamId} />
-        </div>
-        <div style={{ marginTop: '1em', marginBottom: '1em' }}>
-          {!subscription ? (
-            <Button onClick={() => start()}>
-              Start
-            </Button>
-          ) : (
-            <Button onClick={() => stop()}>
-              Stop
-            </Button>
-          )}
-          <Button onClick={() => clear()}>
-            Clear
-          </Button>
-        </div>
-        <CompanyEventsTable events={events} />
-      </Layout.Content>
+            <Switch>
+              <Route path='/companies' component={Companies} />
+              <Route path='/' component={Subscription} />
+            </Switch>
+          </Layout.Content>
+        </Router>
+      </AppContext.Provider>
     </ApolloProvider>
   )
 }
