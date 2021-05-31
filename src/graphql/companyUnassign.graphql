@@ -1,0 +1,5 @@
+mutation companyUnassign($team: ID! $company: ID! $user: ID!) {
+  companyUnassign(team: $team company: $company user: $user) {
+    success
+  }
+}

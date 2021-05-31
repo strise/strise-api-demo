@@ -1,3 +1,5 @@
+#import "./UserFragment.graphql"
+
 fragment Company on Company {
   id
   name
@@ -6,6 +8,13 @@ fragment Company on Company {
     edges {
       node {
         name
+      }
+    }
+  }
+  assignees {
+    edges {
+      node {
+        ...User
       }
     }
   }

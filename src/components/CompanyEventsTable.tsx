@@ -1,9 +1,9 @@
 import React from 'react'
-import { Table } from 'antd'
 import { companyIdToStriseUrl } from '../utils/url'
 import { CompanyEventFragment, CompanyFragment } from '../types/graphql'
 import moment from 'moment'
 import { ColumnsType } from 'antd/lib/table'
+import { FilterableTable } from './FilterableTable'
 
 export const NewTabLink = ({ url, children }: { url: string, children: React.ReactNode }) => <a href={url} target='_blank' rel='noreferrer'>{children}</a>
 
@@ -97,5 +97,5 @@ const columns: ColumnsType<CompanyEventFragment> = [
 ]
 
 export const CompanyEventsTable = ({ events }: { events: CompanyEventFragment[] }) => {
-  return <Table columns={columns} dataSource={events} />
+  return <FilterableTable columns={columns} data={events} />
 }

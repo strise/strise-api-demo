@@ -13,6 +13,8 @@ import { Api, ApiSelect } from './components/Api'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 import { BrowserRouter as Router, Switch, Route, Link, useLocation } from 'react-router-dom'
 import { Companies } from './Companies'
+import jwt from 'jsonwebtoken'
+import { Users } from './Users'
 
 const COMPANY_EVENT = loader('./graphql/companyEvent.graphql')
 const PUBLISH = loader('./graphql/publish.graphql')
@@ -137,6 +139,11 @@ const AppMenu = () => {
           Companies
         </Link>
       </Menu.Item>
+      <Menu.Item key='/users'>
+        <Link to='/users'>
+          Users
+        </Link>
+      </Menu.Item>
     </Menu>
   )
 }
@@ -147,6 +154,9 @@ const App = () => {
   const [token, setToken] = useLocalStorageState<string>('token̈́', '')
   const client = useClient(api, token)
 
+  const decodedToken = jwt.decode(token)
+  const now = new Date().getTime() / 1000
+  const expiresAt = (typeof decodedToken === 'object' && decodedToken && 'exp' in decodedToken && decodedToken['exp']) as number
 
   return (
     <ApolloProvider client={client}>
@@ -168,12 +178,22 @@ const App = () => {
             )}
           />
           <Layout.Content style={{ padding: '0 50px' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', width: '500px' }}>
-            </div>
-            <Switch>
-              <Route path='/companies' component={Companies} />
-              <Route path='/' component={Subscription} />
-            </Switch>
+            {!decodedToken ? (
+              <>
+                Missing token ... Go to settings and paste in a valid one
+              </>
+            ) : (expiresAt < now) ?
+              (
+                <>
+                  Expired token ... Go to settings and paste in a valid one
+                </>
+              ) : (
+                <Switch>
+                  <Route path='/users' component={Users} />
+                  <Route path='/companies' component={Companies} />
+                  <Route path='/' component={Subscription} />
+                </Switch>
+              )}
           </Layout.Content>
         </Router>
       </AppContext.Provider>
