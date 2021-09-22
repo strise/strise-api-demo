@@ -1,11 +1,11 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { loader } from 'graphql.macro'
-import { AppContext } from './App'
-import { UsersTable } from './components/UsersTable'
-import { UserFragment, UsersQuery, UsersQueryVariables } from './types/graphql'
+import { AppContext } from '../components/AppContext'
+import { UsersTable } from '../components/UsersTable'
+import { UserFragment, UsersQuery, UsersQueryVariables } from '../types/graphql'
 
-const USERS = loader('./graphql/users.graphql')
+const USERS = loader('../graphql/users.graphql')
 
 export const useUsers = (): { users: UserFragment[], loading: boolean} => {
   const { teamId } = React.useContext(AppContext)

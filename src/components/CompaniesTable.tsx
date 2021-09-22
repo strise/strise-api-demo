@@ -5,18 +5,18 @@ import { ColumnsType } from 'antd/lib/table'
 import { NewTabLink } from './CompanyEventsTable'
 import { companyIdToStriseUrl } from '../utils/url'
 import { FilterableTable } from './FilterableTable'
-import { useUsers } from '../Users'
+import { useUsers } from '../pages/Users'
 import { filterObjects } from '../utils/object'
 import { CloseOutlined, UserAddOutlined } from '@ant-design/icons'
-import { AppContext } from '../App'
+import { AppContext } from './AppContext'
 import { useMutation } from '@apollo/client'
 import { loader } from 'graphql.macro'
-import { COMPANIES } from '../Companies'
+import { COMPANIES } from '../pages/Companies'
 
 const COMPANY_UNASSIGN = loader('../graphql/companyUnassign.graphql')
 const COMPANY_ASSIGN = loader('../graphql/companyAssign.graphql')
 
-const CompanyAssign = ({ companyId, assignees }: { companyId: string, assignees: CompanyFragment['assignees'] }) => {
+const CompanyAssign = ({ companyId, assignees }: { companyId: string, assignees: CompanyFragment['assignees'] }) => {
   const { teamId } = React.useContext(AppContext)
   const assignedUsersObject = assignees.edges.reduce((acc, { node }) => ({ ...acc, [node.id]: true }), {} as { [id: string]: boolean })
   const [assign] = useMutation<CompanyAssignMutation, CompanyAssignMutationVariables>(COMPANY_ASSIGN, { refetchQueries: [{ query: COMPANIES, variables: { team: teamId } }] })
@@ -38,7 +38,10 @@ const CompanyAssign = ({ companyId, assignees }: { companyId: string, assignees
         dropdownMatchSelectWidth={500}
         style={{ width: 250 }}
         options={options}
-        onSelect={(userId) => { assign({ variables: { team: teamId, user: userId, company: companyId }}); setEdit(false)  }}
+        onSelect={(userId) => {
+          assign({ variables: { team: teamId, user: userId, company: companyId } })
+          setEdit(false)
+        }}
       >
         <Input.Search size='large' value={filter} onChange={(e) => setFilter(e.target.value)} placeholder='Search users ...' />
       </AutoComplete>
@@ -55,7 +58,7 @@ const CompanyAssignees = ({ companyId, assignees }: { companyId: string, assigne
   return (
     <>
       {assignees.edges.map(({ node }) => (
-        <Tag key={companyId + node.id}closable onClose={() => unassign({ variables: { user: node.id, team: teamId, company: companyId }})}>
+        <Tag key={companyId + node.id} closable onClose={() => unassign({ variables: { user: node.id, team: teamId, company: companyId } })}>
           {node.name}
         </Tag>
       ))}
