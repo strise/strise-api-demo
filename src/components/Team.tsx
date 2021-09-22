@@ -1,5 +1,5 @@
 import React from 'react'
-import { loader } from 'graphql.macro'
+import { loader } from 'graphql.macro'
 import { useQuery } from '@apollo/client'
 import { TeamsQuery } from '../types/graphql'
 import { Input, Select } from 'antd'
