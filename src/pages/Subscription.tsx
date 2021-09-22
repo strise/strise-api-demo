@@ -7,7 +7,7 @@ import { Api } from '../components/Api'
 import { CompanyEventsTable } from '../components/CompanyEventsTable'
 import { AppContext } from '../components/AppContext'
 import { loader } from 'graphql.macro'
-import { Publish } from '../components/Publish'
+import { PublishTestEvents } from '../components/PublishTestEvents'
 
 const COMPANY_EVENT = loader('../graphql/companyEvent.graphql')
 
@@ -59,7 +59,7 @@ export const Subscription = () => {
         </Button>
         {api !== Api.PROD && (
           <div style={{ marginLeft: '1em' }}>
-            <Publish teamId={teamId} />
+            <PublishTestEvents teamId={teamId} />
           </div>
         )}
         <div style={{ marginLeft: '1em' }}>
