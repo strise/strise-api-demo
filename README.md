@@ -1,4 +1,4 @@
-# GraphQL Subscriptions Example
+# Strise API Demo
 
 This repository contains an example React app using the Strise Process API for streaming updates about companies. Most of the code can be used in a server application as well.
 
