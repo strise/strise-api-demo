@@ -1,0 +1,118 @@
+# Labels are updated with mito repo as reference.
+# To update labels, please edit mito/.github/settings.yml and then run mito/.github/update_all_labels.sh
+#
+# NB: Running update_all_labels.sh assumes you have relative paths to the other repos in your ~/ directory
+labels:
+  # Bugs n stuff
+  - name: bug
+    color: C70000
+  - name: critical
+    color: EE0701
+  - name: disambiguation
+    color: 8F0000
+  - name: translations
+    color: 931579
+  # Features
+  - name: feature
+    color: 003796
+  - name: experimental
+    color: 221166
+  - name: minor
+    color: 4273C9
+  - name: quickwin
+    color: b400c3
+  - name: 10k-workshop
+    color: b400c3
+  - name: roadmap
+    color: b400c3
+  - name: sweden
+    color: b400c3
+  - name: flags
+    color: 931579
+  - name: relevance
+    color: 931579
+  - name: opportunities
+    color: 931579
+  - name: graph
+    color: 931579
+  - name: ai
+    color: 931579
+  - name: mobile
+    color: 931579
+  # Ops & misc
+  - name: housekeeping
+    color: 5319E7
+  - name: operations
+    color: 0B5575
+  - name: performance
+    color: 0B5575
+  - name: ui
+    color: 7268CC
+  - name: needs investigation
+    color: 008622
+  - name: qa
+    color: 7268CC
+  - name: security
+    color: 8F0000
+  # Modules
+  - name: module:api
+    color: 1d22ba
+  - name: module:common
+    color: 1d22ba
+  - name: module:services
+    color: 1d22ba
+  - name: module:content
+    color: 1d22ba
+  - name: module:piper
+    color: 1d22ba
+  - name: module:batch
+    color: 1d22ba
+  # Apps
+  - name: app:strise
+    color: 128061
+  - name: app:admin
+    color: 128061
+  - name: app:omni
+    color: 128061
+  - name: app:dynamic
+    color: 128061
+  - name: app:qa
+    color: 128061
+  - name: app:slack
+    color: 128061
+  - name: app:web
+    color: 128061
+  - name: app:annotation
+    color: 128061
+  - name: app:system
+    color: 128061
+  - name: app:fika
+    color: 128061
+  # Customer tags
+  - name: request:SPV
+    color: 6b184d
+  - name: request:DB
+    color: 6b184d
+  - name: request:SMN
+    color: 6b184d
+  - name: request:Monner
+    color: 6b184d
+  - name: request:Fundingpartner
+    color: 6b184d
+  - name: request:Folkeinvest
+    color: 6b184d
+  - name: request:BNBank
+    color: 6b184d
+  - name: request:Kameo
+    color: 6b184d
+  - name: request:Handelsbanken
+    color: 6b184d
+  - name: request:SBOstlandet
+    color: 6b184d
+  # Vertical tags
+  - name: feature:sales
+    color: b400c3
+  - name: feature:credit
+    color: b400c3
+  - name: feature:AML
+    color: b400c3
