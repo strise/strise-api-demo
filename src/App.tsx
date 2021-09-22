@@ -6,7 +6,7 @@ import { Layout } from 'antd'
 import { useLocalStorageState } from './utils/hooks'
 import { Logo } from './components/Logo'
 import { Api } from './components/Api'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { Companies } from './pages/Companies'
 import jwt from 'jsonwebtoken'
 import { Users } from './pages/Users'
@@ -52,9 +52,10 @@ const Content = () => {
           </>
         ) : (
           <Switch>
-            <Route path='/users' component={Users} />
-            <Route path='/companies' component={Companies} />
-            <Route path='/' component={Subscription} />
+            <Route path='/graphql-subscriptions-example/users' component={Users} />
+            <Route path='/graphql-subscriptions-example/companies' component={Companies} />
+            <Route path='/graphql-subscriptions-example/events' component={Subscription} />
+            <Redirect to='/graphql-subscriptions-example/events' from='*' />
           </Switch>
         )}
     </Layout.Content>
