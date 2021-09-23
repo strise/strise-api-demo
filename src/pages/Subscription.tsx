@@ -33,7 +33,7 @@ export const Subscription = () => {
       })
 
     setSubscription(subscription)
-  }, [client, teamId])
+  }, [client, teamId, dryRun])
 
   const stop = React.useCallback(() => {
     console.log('Stop!', teamId)
