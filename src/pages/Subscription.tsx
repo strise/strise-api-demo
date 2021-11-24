@@ -1,4 +1,4 @@
-import { useApolloClient } from '@apollo/client'
+import { ObservableSubscription, useApolloClient } from '@apollo/client'
 import React from 'react'
 import { CompanyEventFragment, CompanyEventSubscription } from '../types/graphql'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
@@ -14,7 +14,7 @@ const COMPANY_EVENT = loader('../graphql/companyEvent.graphql')
 export const Subscription = () => {
   const client = useApolloClient()
   const { teamId, api } = React.useContext(AppContext)
-  const [subscription, setSubscription] = React.useState<ZenObservable.Subscription | null>(null)
+  const [subscription, setSubscription] = React.useState<ObservableSubscription | null>(null)
   const [events, setEvents] = React.useState<CompanyEventFragment[]>([])
 
   const [dryRun, setDryRun] = React.useState<boolean>(false)

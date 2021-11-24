@@ -43,7 +43,8 @@
     "start:base": "npm run codegen && react-scripts start",
     "build": "API=https://stage.graphql.strise.ai/process/graphql npm run codegen && react-scripts build",
     "eject": "react-scripts eject",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "test": "tsc"
   },
   "browserslist": {
     "production": [
