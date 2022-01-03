@@ -39,7 +39,7 @@ const CompanyAssign = ({ companyId, assignees }: { companyId: string, assignees:
         style={{ width: 250 }}
         options={options}
         onSelect={(userId) => {
-          assign({ variables: { team: teamId, user: userId, company: companyId } })
+          assign({ variables: { team: teamId, user: String(userId), company: companyId } })
           setEdit(false)
         }}
       >
