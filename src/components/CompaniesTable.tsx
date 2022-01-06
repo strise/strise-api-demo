@@ -38,8 +38,8 @@ const CompanyAssign = ({ companyId, assignees }: { companyId: string, assignees:
         dropdownMatchSelectWidth={500}
         style={{ width: 250 }}
         options={options}
-        onSelect={(userId) => {
-          assign({ variables: { team: teamId, user: String(userId), company: companyId } })
+        onSelect={(userId: string) => {
+          assign({ variables: { team: teamId, user: userId, company: companyId } })
           setEdit(false)
         }}
       >
