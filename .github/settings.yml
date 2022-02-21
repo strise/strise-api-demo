@@ -8,10 +8,16 @@ labels:
     color: C70000
   - name: critical
     color: EE0701
-  - name: disambiguation
-    color: 8F0000
-  - name: translations
-    color: 931579
+
+  # Prioritization
+  - name: High impact / High effort
+    color: b400c3
+  - name: High impact / Low effort
+    color: b400c3
+  - name: Low impact / High effort
+    color: b400c3
+  - name: Low impact / Low effort
+    color: b400c3
   # Features
   - name: feature
     color: 003796
@@ -21,51 +27,44 @@ labels:
     color: 4273C9
   - name: quickwin
     color: b400c3
+  # Requested by
+  - name: loop
+    color: b400c3
+  - name: handover
+    color: b400c3
   - name: 10k-workshop
     color: b400c3
   - name: roadmap
     color: b400c3
+  # Rocks
+  - name: norway
+    color: 6b184d
   - name: sweden
-    color: b400c3
+    color: 6b184d
+  - name: denmark
+    color: 6b184d
+  - name: uk
+    color: 6b184d
+  - name: search
+    color: 6b184d
   - name: flags
-    color: 931579
+    color: 6b184d
   - name: relevance
-    color: 931579
+    color: 6b184d
   - name: opportunities
-    color: 931579
+    color: 6b184d
   - name: graph
-    color: 931579
+    color: 6b184d
   - name: ai
-    color: 931579
-  - name: mobile
-    color: 931579
-  # Ops & misc
-  - name: housekeeping
-    color: 5319E7
-  - name: operations
-    color: 0B5575
-  - name: performance
-    color: 0B5575
-  - name: ui
-    color: 7268CC
-  - name: needs investigation
-    color: 008622
-  - name: qa
-    color: 7268CC
-  - name: security
-    color: 8F0000
-  # Modules
-  - name: module:api
+    color: 6b184d
+  # Squads
+  - name: squad:acq&act
     color: 1d22ba
-  - name: module:common
+  - name: squad:workflows
     color: 1d22ba
-  - name: module:services
+  - name: squad:data&int
     color: 1d22ba
-  - name: module:content
-    color: 1d22ba
-  - name: module:piper
-    color: 1d22ba
-  - name: module:batch
+  - name: squad:core
     color: 1d22ba
   # Apps
   - name: app:strise
@@ -88,31 +87,24 @@ labels:
     color: 128061
   - name: app:fika
     color: 128061
-  # Customer tags
-  - name: request:SPV
-    color: 6b184d
-  - name: request:DB
-    color: 6b184d
-  - name: request:SMN
-    color: 6b184d
-  - name: request:Monner
-    color: 6b184d
-  - name: request:Fundingpartner
-    color: 6b184d
-  - name: request:Folkeinvest
-    color: 6b184d
-  - name: request:BNBank
-    color: 6b184d
-  - name: request:Kameo
-    color: 6b184d
-  - name: request:Handelsbanken
-    color: 6b184d
-  - name: request:SBOstlandet
-    color: 6b184d
-  # Vertical tags
-  - name: feature:sales
-    color: b400c3
-  - name: feature:credit
-    color: b400c3
-  - name: feature:AML
-    color: b400c3
+  - name: mobile
+    color: 128061
+  # Ops & misc
+  - name: housekeeping
+    color: 5319E7
+  - name: operations
+    color: 0B5575
+  - name: performance
+    color: 0B5575
+  - name: ui
+    color: 7268CC
+  - name: needs investigation
+    color: 008622
+  - name: qa
+    color: 7268CC
+  - name: security
+    color: 8F0000
+  - name: disambiguation
+    color: 8F0000
+  - name: translations
+    color: 931579
