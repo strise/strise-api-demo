@@ -66,6 +66,12 @@ labels:
     color: 1d22ba
   - name: squad:core
     color: 1d22ba
+  - name: squad:acquistion
+    color: 1d22ba
+  - name: squad:retention
+    color: 1d22ba
+  - name: squad:expansion
+    color: 1d22ba
   # Apps
   - name: app:strise
     color: 128061
