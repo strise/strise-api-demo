@@ -58,12 +58,6 @@ labels:
   - name: ai
     color: 6b184d
   # Squads
-  - name: squad:acq&act
-    color: 1d22ba
-  - name: squad:workflows
-    color: 1d22ba
-  - name: squad:data&int
-    color: 1d22ba
   - name: squad:core
     color: 1d22ba
   - name: squad:acquistion
