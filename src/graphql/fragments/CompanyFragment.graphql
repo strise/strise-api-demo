@@ -1,4 +1,4 @@
-#import "./UserFragment.graphql"
+#import './UserFragment.graphql'
 
 fragment Company on Company {
   id
