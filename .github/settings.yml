@@ -60,6 +60,10 @@ labels:
   # Squads
   - name: squad:core
     color: 1d22ba
+  - name: squad:app
+    color: 1d22ba
+  - name: squad:engage
+    color: 1d22ba
   - name: squad:acquistion
     color: 1d22ba
   - name: squad:retention
