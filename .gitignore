@@ -27,3 +27,5 @@ yarn-error.log*
 
 # codegen
 src/types/graphql.ts
+
+package-lock.json

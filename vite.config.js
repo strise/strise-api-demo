@@ -6,6 +6,9 @@ import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfil
 
 export default defineConfig({
   root: './src',
+  build: {
+    outDir: '../build'
+  },
   plugins: [
     graphql(),
     react()
