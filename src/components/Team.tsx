@@ -1,23 +1,21 @@
 import React from 'react'
-import { loader } from 'graphql.macro'
 import { useQuery } from '@apollo/client'
-import { TeamsQuery } from '../types/graphql'
+import { TeamsQuery, TeamsQueryVariables } from '../types/graphql'
 import { Input, Select } from 'antd'
-
-const TEAMS = loader('../graphql/teams.graphql')
+import TEAMS from '../graphql/teams.graphql'
 
 export const Teams = ({ teamId, setTeamId }: { teamId: string, setTeamId: React.Dispatch<React.SetStateAction<string>> }) => {
   const onChange = React.useCallback((value: string) => setTeamId(value), [setTeamId])
 
-  const { data, loading } = useQuery<TeamsQuery>(TEAMS)
+  const { data, loading } = useQuery<TeamsQuery, TeamsQueryVariables>(TEAMS)
 
   const teams = data?.teams.edges.map(({ node }) => node)
   return (
-    <div style={{display: 'flex', flexDirection: 'column'}}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div>
         Team
       </div>
-      {(loading || !teams)
+      {(loading || (teams == null))
         ? <Input value={teamId} onChange={(e) => setTeamId(e.target.value)} />
         : (
           <Select value={teamId} onChange={onChange}>
@@ -27,7 +25,7 @@ export const Teams = ({ teamId, setTeamId }: { teamId: string, setTeamId: React.
               </Select.Option>
             ))}
           </Select>
-        )
+          )
       }
     </div>
   )

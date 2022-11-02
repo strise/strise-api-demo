@@ -10,4 +10,4 @@ interface AppContextInterface {
   setApi: React.Dispatch<React.SetStateAction<Api>>
 }
 
-export const AppContext = React.createContext({} as any as AppContextInterface)
+export const AppContext = React.createContext({} as AppContextInterface)

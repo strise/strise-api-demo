@@ -6,10 +6,8 @@ import { Button, Checkbox } from 'antd'
 import { Api } from '../components/Api'
 import { CompanyEventsTable } from '../components/CompanyEventsTable'
 import { AppContext } from '../components/AppContext'
-import { loader } from 'graphql.macro'
 import { PublishTestEvents } from '../components/PublishTestEvents'
-
-const COMPANY_EVENT = loader('../graphql/companyEvent.graphql')
+import COMPANY_EVENT from '../graphql/companyEvent.graphql'
 
 export const Subscription = () => {
   const client = useApolloClient()
@@ -27,9 +25,9 @@ export const Subscription = () => {
       .subscribe<CompanyEventSubscription>({ query: COMPANY_EVENT, variables: teamId ? { team: teamId, dryRun } : undefined })
       .subscribe((response) => {
         const event = response.data?.companyEvent
-        if (!event) return
+        if (event == null) return
         console.info('Received event', event.id)
-        setEvents((prevEvents) => [{ ...event, key: event.id + event.createdAt }, ...prevEvents])
+        setEvents((prevEvents) => [{ ...event, key: `${event.id}-${event.createdAt as string}` }, ...prevEvents])
       })
 
     setSubscription(subscription)
@@ -37,7 +35,7 @@ export const Subscription = () => {
 
   const stop = React.useCallback(() => {
     console.log('Stop!', teamId)
-    if (subscription) subscription.unsubscribe()
+    if (subscription != null) subscription.unsubscribe()
     setSubscription(null)
   }, [subscription, teamId])
 
@@ -45,15 +43,17 @@ export const Subscription = () => {
   return (
     <>
       <div style={{ display: 'flex', marginBottom: '1em', alignItems: 'center' }}>
-        {!subscription ? (
+        {(subscription == null)
+          ? (
           <Button onClick={() => start()}>
             Start
           </Button>
-        ) : (
+            )
+          : (
           <Button onClick={() => stop()}>
             Stop
           </Button>
-        )}
+            )}
         <Button onClick={() => clear()}>
           Clear
         </Button>

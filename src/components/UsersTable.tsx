@@ -7,7 +7,7 @@ const columns: ColumnsType<UserFragment> = [
   {
     title: 'Name',
     dataIndex: 'name',
-    key: 'name',
+    key: 'name'
   },
   {
     title: 'Email',

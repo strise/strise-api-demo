@@ -12,7 +12,7 @@ const columns: ColumnsType<CompanyEventFragment> = [
     title: 'Type',
     dataIndex: '__typename',
     key: 'type',
-    render: (typename: string) => typename.replace("Event", "")
+    render: (typename: string) => typename.replace('Event', '')
   },
   {
     title: 'Title',
@@ -53,7 +53,7 @@ const columns: ColumnsType<CompanyEventFragment> = [
   {
     title: 'Trigger',
     key: 'trigger',
-    render: (_: any, event) => {
+    render: (_, event) => {
       switch (event.__typename) {
         case 'AnnouncementEvent':
           return event.announcementEventTrigger
@@ -67,7 +67,7 @@ const columns: ColumnsType<CompanyEventFragment> = [
   {
     title: 'Meta',
     key: 'meta',
-    render: (_: any, event) => {
+    render: (_, event) => {
       switch (event.__typename) {
         case 'AnnouncementEvent':
           return (
@@ -93,7 +93,7 @@ const columns: ColumnsType<CompanyEventFragment> = [
           )
       }
     }
-  },
+  }
 ]
 
 export const CompanyEventsTable = ({ events }: { events: CompanyEventFragment[] }) => {
