@@ -8,9 +8,11 @@ module.exports = {
   },
   ignorePatterns: [
     '.eslintrc.js',
-    'src/types/graphql.ts'
+    'src/types/graphql.ts',
+    'build'
   ],
   rules: {
+    'multiline-ternary': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
