@@ -47,10 +47,10 @@ const Content = () => {
         </>
       ) : (
         <Routes>
-          <Route path='/graphql-subscriptions-example/events' element={<Subscription />} />
-          <Route path='/graphql-subscriptions-example/users' element={<Users />} />
-          <Route path='/graphql-subscriptions-example/companies' element={<Companies />} />
-          <Route path='*' element={<Navigate to='/graphql-subscriptions-example/events' replace />} />
+          <Route path='/events' element={<Subscription />} />
+          <Route path='/users' element={<Users />} />
+          <Route path='/companies' element={<Companies />} />
+          <Route path='*' element={<Navigate to='/events' replace />} />
         </Routes>
       )}
     </Layout.Content>
