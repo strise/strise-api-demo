@@ -2,7 +2,7 @@
 
 This repository contains an example React app using the Strise Process API for streaming updates about companies. Most of the code can be used in a server application as well.
 
-A deployed version of the app can be found [here](https://files.strise.ai/graphql-subscriptions-example).
+A deployed version of the app can be found [here](https://api-demo.strise.ai).
 
 ## GraphQL WebSocket Protocol
 
@@ -38,4 +38,4 @@ In this example [`graphql-codegen`](https://graphql-code-generator.com/) is used
 ## Development
 
 1. Install dependencies `npm install`
-2. Start the development server `npm run start:stage`
+2. Start the development server `npm run dev:stage`

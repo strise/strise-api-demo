@@ -5,7 +5,7 @@ import graphql from '@rollup/plugin-graphql'
 export default defineConfig({
   root: 'src',
   build: {
-    outDir: '../build',
+    outDir: '../dist',
     emptyOutDir: true
   },
   plugins: [
