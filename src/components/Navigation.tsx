@@ -7,18 +7,18 @@ export const Navigation = () => {
 
   return (
     <Menu selectedKeys={[location.pathname]} mode='horizontal' style={{ width: '100%', margin: '0 8px' }}>
-      <Menu.Item key='/graphql-subscriptions-example/events'>
-        <Link to='/graphql-subscriptions-example/events'>
+      <Menu.Item key='/events'>
+        <Link to='/events'>
           Events
         </Link>
       </Menu.Item>
-      <Menu.Item key='/graphql-subscriptions-example/companies'>
-        <Link to='/graphql-subscriptions-example/companies'>
+      <Menu.Item key='/companies'>
+        <Link to='/companies'>
           Companies
         </Link>
       </Menu.Item>
-      <Menu.Item key='/graphql-subscriptions-example/users'>
-        <Link to='/graphql-subscriptions-example/users'>
+      <Menu.Item key='/users'>
+        <Link to='/users'>
           Users
         </Link>
       </Menu.Item>
