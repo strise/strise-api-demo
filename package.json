@@ -11,9 +11,9 @@
     "build": "vite build",
     "start": "http-server ./dist",
     "codegen:base": "graphql-codegen --config codegen.yml",
-    "codegen:prod": "API=https://graphql.strise.ai/process/graphql npm run codegen",
-    "codegen:stage": "API=https://stage.graphql.strise.ai/process/graphql npm run codegen",
-    "codegen:local": "API=http://localhost:8080/process/graphql npm run codegen",
+    "codegen:prod": "API=https://graphql.strise.ai/process/graphql npm run codegen:base",
+    "codegen:stage": "API=https://stage.graphql.strise.ai/process/graphql npm run codegen:base",
+    "codegen:local": "API=http://localhost:8080/process/graphql npm run codegen:base",
     "test": "tsc && eslint ."
   },
   "dependencies": {
