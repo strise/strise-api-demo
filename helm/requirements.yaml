@@ -1,5 +1,0 @@
-dependencies:
-  - name: api-demo-app
-    version: 0.1.0
-    repository: file://../api-demo-app
-    alias: app
