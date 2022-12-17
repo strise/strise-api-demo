@@ -3,7 +3,7 @@ const config = {
   schema: process.env.API,
   documents: './src/graphql/**/*.graphql',
   generates: {
-    './graphqlSchema.json': {
+    './graphqlSchema.graphql': {
       plugins: ['schema-ast']
     },
     './src/types/graphqlTypes.ts': {
