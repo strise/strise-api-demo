@@ -4,9 +4,10 @@ fragment Company on Company {
   id
   name
   organizationNumber
-  tags  {
+  tags {
     edges {
       node {
+        id
         name
       }
     }

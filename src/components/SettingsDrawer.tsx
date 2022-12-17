@@ -4,11 +4,11 @@ import { ApiSelect } from './Api'
 import { Teams } from './Team'
 import { AppContext } from './AppContext'
 
-export const SettingsDrawer = () => {
+export const SettingsDrawer = (): React.ReactElement => {
   const { api, setApi, teamId, setTeamId, token, setToken } = React.useContext(AppContext)
   const [open, setOpen] = React.useState(false)
-  const onOpen = () => setOpen(true)
-  const onClose = () => setOpen(false)
+  const onOpen = (): void => setOpen(true)
+  const onClose = (): void => setOpen(false)
   return (
     <>
       <Button type='primary' onClick={onOpen} style={{ margin: 0 }}>

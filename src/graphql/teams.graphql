@@ -4,7 +4,7 @@ fragment Team on Team {
   createdAt
 }
 
-query teams {
+query Teams {
   teams {
     edges {
       node {

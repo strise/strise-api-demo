@@ -1,6 +1,5 @@
 import React from 'react'
 import { AutoComplete, Button, Input, Tag } from 'antd'
-import { CompanyAssignMutation, CompanyAssignMutationVariables, CompanyFragment, CompanyUnassignMutation, CompanyUnassignMutationVariables } from '../types/graphql'
 import { ColumnsType } from 'antd/lib/table'
 import { NewTabLink } from './CompanyEventsTable'
 import { companyIdToStriseUrl } from '../utils/url'
@@ -9,23 +8,25 @@ import { useUsers } from '../pages/Users'
 import { filterObjects } from '../utils/object'
 import { CloseOutlined, UserAddOutlined } from '@ant-design/icons'
 import { AppContext } from './AppContext'
-import { useMutation } from '@apollo/client'
 import COMPANIES from '../graphql/companies.graphql'
-import COMPANY_UNASSIGN from '../graphql/companyUnassign.graphql'
-import COMPANY_ASSIGN from '../graphql/companyAssign.graphql'
+import { CompanyFragment } from '../types/graphqlOperationTypes'
+import { useCompanyAssignMutation, useCompanyUnassignMutation } from '../utils/graphqlOperations'
 
-const CompanyAssign = ({ companyId, assignees }: { companyId: string, assignees: CompanyFragment['assignees'] }) => {
+const CompanyAssign = ({ companyId, assignees }: { companyId: string; assignees: CompanyFragment['assignees'] }): React.ReactElement => {
   const { teamId } = React.useContext(AppContext)
-  const assignedUsersObject = assignees.edges.reduce<{ [id: string]: boolean }>((acc, { node }) => ({ ...acc, [node.id]: true }), {})
-  const [assign] = useMutation<CompanyAssignMutation, CompanyAssignMutationVariables>(COMPANY_ASSIGN, { refetchQueries: [{ query: COMPANIES, variables: { team: teamId } }] })
+  const assignedUsersObject = assignees.edges.reduce<Record<string, boolean>>((acc, { node }) => ({ ...acc, [node.id]: true }), {})
+  const [assign] = useCompanyAssignMutation({ refetchQueries: [{ query: COMPANIES, variables: { team: teamId } }] })
   const { users } = useUsers()
   const [filter, setFilter] = React.useState('')
-  const filteredUsers = filterObjects(users.filter((user) => !assignedUsersObject[user.id]), filter)
+  const filteredUsers = filterObjects(
+    users.filter((user) => !assignedUsersObject[user.id]),
+    filter
+  )
   const [edit, setEdit] = React.useState(false)
   const options = filteredUsers.map((user) => ({ label: user.name, value: user.id }))
 
-  const handleSelect = (userId: string) => {
-    assign({ variables: { team: teamId, user: userId, company: companyId } })
+  const handleSelect = async (userId: string): Promise<void> => {
+    await assign({ variables: { team: teamId, user: userId, company: companyId } })
     setEdit(false)
   }
 
@@ -39,12 +40,7 @@ const CompanyAssign = ({ companyId, assignees }: { companyId: string, assignees:
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <AutoComplete
-        dropdownMatchSelectWidth={500}
-        style={{ width: 250 }}
-        options={options}
-        onSelect={handleSelect}
-      >
+      <AutoComplete dropdownMatchSelectWidth={500} style={{ width: 250 }} options={options} onSelect={handleSelect}>
         <Input.Search size='large' value={filter} onChange={(e) => setFilter(e.target.value)} placeholder='Search users ...' />
       </AutoComplete>
       <Button style={{ marginLeft: '0.5em' }} onClick={() => setEdit(false)}>
@@ -54,14 +50,16 @@ const CompanyAssign = ({ companyId, assignees }: { companyId: string, assignees:
   )
 }
 
-const CompanyAssignees = ({ companyId, assignees }: { companyId: string, assignees: CompanyFragment['assignees'] }) => {
+const CompanyAssignees = ({ companyId, assignees }: { companyId: string; assignees: CompanyFragment['assignees'] }): React.ReactElement => {
   const { teamId } = React.useContext(AppContext)
-  const [unassign] = useMutation<CompanyUnassignMutation, CompanyUnassignMutationVariables>(COMPANY_UNASSIGN, { refetchQueries: [{ query: COMPANIES, variables: { team: teamId } }] })
+  const [unassign] = useCompanyUnassignMutation({ refetchQueries: [{ query: COMPANIES, variables: { team: teamId } }] })
 
   return (
     <>
       {assignees.edges.map(({ node }) => {
-        const handleClose = async () => await unassign({ variables: { user: node.id, team: teamId, company: companyId } })
+        const handleClose = async (): Promise<void> => {
+          await unassign({ variables: { user: node.id, team: teamId, company: companyId } })
+        }
 
         return (
           <Tag key={companyId + node.id} closable onClose={handleClose}>
@@ -105,6 +103,6 @@ const columns: ColumnsType<CompanyFragment> = [
   }
 ]
 
-export const CompaniesTable = ({ companies }: { companies: CompanyFragment[] }) => {
+export const CompaniesTable = ({ companies }: { companies: CompanyFragment[] }): React.ReactElement => {
   return <FilterableTable columns={columns} data={companies} />
 }

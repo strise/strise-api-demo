@@ -1,1 +1,1 @@
-export const companyIdToStriseUrl = (id: string) => `https://app.strise.ai/company/${id}`
+export const companyIdToStriseUrl = (id: string): string => `https://app.strise.ai/company/${id}`

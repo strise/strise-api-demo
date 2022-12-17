@@ -1,6 +1,6 @@
 #import "./fragments/CompanyFragment.graphql"
 
-fragment CompanyEvent on CompanyEvent {
+fragment CompanyEventBase on CompanyEvent {
   id
   title
   striseUrl
@@ -25,8 +25,8 @@ fragment CompanyEvent on CompanyEvent {
   }
 }
 
-subscription companyEvent($team: ID!, $dryRun: Boolean) {
+subscription CompanyEvent($team: ID!, $dryRun: Boolean) {
   companyEvent(team: $team, dryRun: $dryRun) {
-    ...CompanyEvent
+    ...CompanyEventBase
   }
 }

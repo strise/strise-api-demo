@@ -1,6 +1,8 @@
-mutation publishTestEvents($team: ID!) {
+mutation PublishTestEvents($team: ID!) {
   generateAndPublishTestEvents(team: $team, size: 10, organizationNumbers: []) {
+    id
     company {
+      id
       name
       status
     }

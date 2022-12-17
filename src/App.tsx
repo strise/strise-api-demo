@@ -14,7 +14,7 @@ import { Navigation } from './components/Navigation'
 import { Subscription } from './pages/Subscription'
 import { useDecodeToken } from './utils/authenticationUtils'
 
-const Menu = () => {
+const Menu = (): React.ReactElement => {
   return (
     <div style={{ display: 'flex', paddingRight: 12, marginBottom: 12 }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -31,20 +31,16 @@ const Menu = () => {
   )
 }
 
-const Content = () => {
+const Content = (): React.ReactElement => {
   const decodedToken = useDecodeToken()
   const now = new Date().getTime() / 1000
 
   return (
     <Layout.Content style={{ padding: '0 50px' }}>
       {!decodedToken ? (
-        <>
-          Missing token ... Go to settings and paste in a valid one
-        </>
-      ) : (decodedToken.exp < now) ? (
-        <>
-          Expired token ... Go to settings and paste in a valid one
-        </>
+        <>Missing token ... Go to settings and paste in a valid one</>
+      ) : decodedToken.exp < now ? (
+        <>Expired token ... Go to settings and paste in a valid one</>
       ) : (
         <Routes>
           <Route path='/events' element={<Subscription />} />
@@ -57,7 +53,7 @@ const Content = () => {
   )
 }
 
-const App = () => {
+const App = (): React.ReactElement => {
   const [api, setApi] = useLocalStorageState<Api>('api', Api.PROD)
   const [teamId, setTeamId] = useLocalStorageState<string>('teamId', '')
   const [token, setToken] = useLocalStorageState<string>('token̈́', '')

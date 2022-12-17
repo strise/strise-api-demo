@@ -1,13 +1,17 @@
 import React from 'react'
 import { companyIdToStriseUrl } from '../utils/url'
-import { CompanyEventFragment, CompanyFragment } from '../types/graphql'
 import moment from 'moment'
 import { ColumnsType } from 'antd/lib/table'
 import { FilterableTable } from './FilterableTable'
+import { CompanyEventBaseFragment, CompanyFragment } from '../types/graphqlOperationTypes'
 
-export const NewTabLink = ({ url, children }: { url: string, children: React.ReactNode }) => <a href={url} target='_blank' rel='noreferrer'>{children}</a>
+export const NewTabLink = ({ url, children }: { url: string; children: React.ReactNode }): React.ReactElement => (
+  <a href={url} target='_blank' rel='noreferrer'>
+    {children}
+  </a>
+)
 
-const columns: ColumnsType<CompanyEventFragment> = [
+const columns: ColumnsType<CompanyEventBaseFragment> = [
   {
     title: 'Type',
     dataIndex: '__typename',
@@ -18,7 +22,7 @@ const columns: ColumnsType<CompanyEventFragment> = [
     title: 'Title',
     dataIndex: 'title',
     key: 'title',
-    render: (title, event) => event.striseUrl ? <NewTabLink url={event.striseUrl}>{title}</NewTabLink> : title
+    render: (title, event) => (event.striseUrl ? <NewTabLink url={event.striseUrl}>{title}</NewTabLink> : title)
   },
   {
     title: 'Company',
@@ -86,16 +90,12 @@ const columns: ColumnsType<CompanyEventFragment> = [
             </>
           )
         case 'CreditEvent':
-          return (
-            <>
-              Code: {event.code}
-            </>
-          )
+          return <>Code: {event.code}</>
       }
     }
   }
 ]
 
-export const CompanyEventsTable = ({ events }: { events: CompanyEventFragment[] }) => {
+export const CompanyEventsTable = ({ events }: { events: CompanyEventBaseFragment[] }): React.ReactElement => {
   return <FilterableTable columns={columns} data={events} />
 }

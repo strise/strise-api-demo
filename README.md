@@ -14,9 +14,9 @@ The client authenticates against the API using a [JSON Web Token](https://jwt.io
 
 ```json
 {
-  "type":"connection_init",
-  "payload":{
-    "Authorization":"Bearer token"
+  "type": "connection_init",
+  "payload": {
+    "Authorization": "Bearer token"
   }
 }
 ```

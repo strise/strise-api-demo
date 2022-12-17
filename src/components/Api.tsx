@@ -7,7 +7,7 @@ export enum Api {
   PROD = 'wss://graphql.strise.ai/process/graphql'
 }
 
-export const ApiSelect = ({ api, setApi }: { api: Api, setApi: React.Dispatch<React.SetStateAction<Api>> }) => {
+export const ApiSelect = ({ api, setApi }: { api: Api; setApi: React.Dispatch<React.SetStateAction<Api>> }): React.ReactElement => {
   const onChange = React.useCallback((value: Api) => setApi(value), [setApi])
 
   return (

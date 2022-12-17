@@ -1,0 +1,10 @@
+*.json
+
+.prettierignore
+.gitignore
+graphqlTypes.ts
+graphqlOperationTypes.ts
+graphqlOperations.ts
+graphqlSchema.graphql
+
+dist
