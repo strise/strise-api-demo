@@ -10,10 +10,6 @@ labels:
     color: EE0701
 
   # Prioritization
-  - name: High impact
-    color: b400c3
-  - name: Low impact
-    color: b400c3
   - name: impact:high
     color: b400c3
   - name: impact:low
