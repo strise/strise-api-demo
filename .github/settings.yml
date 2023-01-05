@@ -10,14 +10,6 @@ labels:
     color: EE0701
 
   # Prioritization
-  - name: High impact / High effort
-    color: b400c3
-  - name: High impact / Low effort
-    color: b400c3
-  - name: Low impact / High effort
-    color: b400c3
-  - name: Low impact / Low effort
-    color: b400c3
   - name: High impact
     color: b400c3
   - name: Low impact
@@ -31,12 +23,6 @@ labels:
     color: b400c3
   # Requested by
   - name: loop
-    color: b400c3
-  - name: handover
-    color: b400c3
-  - name: 10k-workshop
-    color: b400c3
-  - name: roadmap
     color: b400c3
   # Rocks
   - name: norway
@@ -61,6 +47,8 @@ labels:
     color: 6b184d
   - name: ai
     color: 6b184d
+  - name: ai
+    color: global
   # Squads
   - name: squad:core
     color: 1d22ba
