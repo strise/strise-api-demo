@@ -14,6 +14,10 @@ labels:
     color: b400c3
   - name: Low impact
     color: b400c3
+  - name: impact:high
+    color: b400c3
+  - name: impact:low
+    color: b400c3
   # Features
   - name: feature
     color: 003796
