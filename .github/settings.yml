@@ -18,13 +18,15 @@ labels:
     color: b400c3
   - name: Low impact / Low effort
     color: b400c3
+  - name: High impact
+    color: b400c3
+  - name: Low impact
+    color: b400c3
   # Features
   - name: feature
     color: 003796
   - name: experimental
     color: 221166
-  - name: minor
-    color: 4273C9
   - name: quickwin
     color: b400c3
   # Requested by
@@ -42,6 +44,8 @@ labels:
   - name: sweden
     color: 6b184d
   - name: denmark
+    color: 6b184d
+  - name: finland
     color: 6b184d
   - name: uk
     color: 6b184d
