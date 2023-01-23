@@ -1,0 +1,5 @@
+mutation CompanyAssign($team: ID!, $where: EntityWhereInput!, $data: AssigneeDataInput!) {
+  companyAssign(team: $team, where: $where, data: $data) {
+    success
+  }
+}

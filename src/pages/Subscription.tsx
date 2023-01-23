@@ -6,7 +6,7 @@ import { Api } from '../components/Api'
 import { CompanyEventsTable } from '../components/CompanyEventsTable'
 import { AppContext } from '../components/AppContext'
 import { PublishTestEvents } from '../components/PublishTestEvents'
-import COMPANY_EVENT from '../graphql/companyEvent.graphql'
+import COMPANY_EVENT from '../graphql/subscriptions/companyEvent.graphql'
 import { CompanyEventBaseFragment, CompanyEventSubscription } from '../types/graphqlOperationTypes'
 
 export const Subscription = (): React.ReactElement => {

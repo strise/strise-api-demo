@@ -1,0 +1,5 @@
+mutation CompanyUnassign($team: ID!, $where: EntityWhereInput!, $data: AssigneeDataInput!) {
+  companyUnassign(team: $team, where: $where, data: $data) {
+    success
+  }
+}

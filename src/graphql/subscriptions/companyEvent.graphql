@@ -1,4 +1,4 @@
-#import "./fragments/CompanyFragment.graphql"
+#import "../fragments/CompanyFragment.graphql"
 
 fragment CompanyEventBase on CompanyEvent {
   id

@@ -1,4 +1,4 @@
-#import "./fragments/CompanyFragment.graphql"
+#import "../fragments/CompanyFragment.graphql"
 
 query Companies($team: ID!) {
   companies(team: $team) {

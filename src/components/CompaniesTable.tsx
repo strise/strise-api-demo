@@ -8,7 +8,7 @@ import { useUsers } from '../pages/Users'
 import { filterObjects } from '../utils/object'
 import { CloseOutlined, UserAddOutlined } from '@ant-design/icons'
 import { AppContext } from './AppContext'
-import COMPANIES from '../graphql/companies.graphql'
+import COMPANIES from '../graphql/queries/companies.graphql'
 import { CompanyFragment } from '../types/graphqlOperationTypes'
 import { useCompanyAssignMutation, useCompanyUnassignMutation } from '../utils/graphqlOperations'
 
@@ -26,7 +26,7 @@ const CompanyAssign = ({ companyId, assignees }: { companyId: string; assignees:
   const options = filteredUsers.map((user) => ({ label: user.name, value: user.id }))
 
   const handleSelect = async (userId: string): Promise<void> => {
-    await assign({ variables: { team: teamId, user: userId, company: companyId } })
+    await assign({ variables: { team: teamId, where: { id: companyId }, data: { user: userId } } })
     setEdit(false)
   }
 
@@ -58,7 +58,7 @@ const CompanyAssignees = ({ companyId, assignees }: { companyId: string; assigne
     <>
       {assignees.edges.map(({ node }) => {
         const handleClose = async (): Promise<void> => {
-          await unassign({ variables: { user: node.id, team: teamId, company: companyId } })
+          await unassign({ variables: { team: teamId, where: { id: companyId }, data: { user: node.id } } })
         }
 
         return (

@@ -1,0 +1,11 @@
+mutation PublishTestEvents($team: ID!, $where: EntitiesWhereInput, $pageInfo: SizePageInfoInput) {
+  generateAndPublishTestEvents(team: $team, where: $where, pageInfo: $pageInfo) {
+    id
+    company {
+      id
+      name
+      status
+    }
+    title
+  }
+}

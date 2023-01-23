@@ -1,12 +1,11 @@
-import { useMutation } from '@apollo/client'
 import { Button } from 'antd'
 import React from 'react'
-import PUBLISH_TEST_EVENTS from '../graphql/publishTestEvents.graphql'
+import { usePublishTestEventsMutation } from '../utils/graphqlOperations'
 
 export const PublishTestEvents = ({ teamId }: { teamId: string }): React.ReactElement => {
-  const [publish, { loading }] = useMutation(PUBLISH_TEST_EVENTS, { variables: { team: teamId } })
+  const [publish, { loading }] = usePublishTestEventsMutation()
   const handleClick = async (): Promise<void> => {
-    await publish()
+    await publish({ variables: { team: teamId } })
   }
 
   return (
