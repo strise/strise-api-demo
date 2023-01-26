@@ -1,18 +1,19 @@
-import { ObservableSubscription, useApolloClient } from '@apollo/client'
+import type { ObservableSubscription } from '@apollo/client'
+import { useApolloClient } from '@apollo/client'
 import React from 'react'
-import { CheckboxChangeEvent } from 'antd/lib/checkbox'
+import type { CheckboxChangeEvent } from 'antd/lib/checkbox'
 import { Button, Checkbox } from 'antd'
 import { Api } from '../components/Api'
 import { CompanyEventsTable } from '../components/CompanyEventsTable'
 import { AppContext } from '../components/AppContext'
 import { PublishTestEvents } from '../components/PublishTestEvents'
 import COMPANY_EVENT from '../graphql/subscriptions/companyEvent.graphql'
-import { CompanyEventBaseFragment, CompanyEventSubscription } from '../types/graphqlOperationTypes'
+import type { CompanyEventBaseFragment, CompanyEventSubscription } from '../types/graphqlOperationTypes'
 
 export const Subscription = (): React.ReactElement => {
   const client = useApolloClient()
   const { teamId, api } = React.useContext(AppContext)
-  const [subscription, setSubscription] = React.useState<ObservableSubscription | null>(null)
+  const [subscriptionState, setSubscriptionState] = React.useState<ObservableSubscription | null>(null)
   const [events, setEvents] = React.useState<CompanyEventBaseFragment[]>([])
 
   const [dryRun, setDryRun] = React.useState<boolean>(false)
@@ -27,20 +28,20 @@ export const Subscription = (): React.ReactElement => {
       setEvents((prevEvents) => [{ ...event, key: `${event.id}-${event.createdAt as string}` }, ...prevEvents])
     })
 
-    setSubscription(subscription)
+    setSubscriptionState(subscription)
   }, [client, teamId, dryRun])
 
   const stop = React.useCallback(() => {
     console.log('Stop!', teamId)
-    if (subscription != null) subscription.unsubscribe()
-    setSubscription(null)
-  }, [subscription, teamId])
+    if (subscriptionState != null) subscriptionState.unsubscribe()
+    setSubscriptionState(null)
+  }, [subscriptionState, teamId])
 
   const clear = React.useCallback(() => setEvents([]), [])
   return (
     <>
       <div style={{ display: 'flex', marginBottom: '1em', alignItems: 'center' }}>
-        {subscription == null ? <Button onClick={() => start()}>Start</Button> : <Button onClick={() => stop()}>Stop</Button>}
+        {subscriptionState == null ? <Button onClick={() => start()}>Start</Button> : <Button onClick={() => stop()}>Stop</Button>}
         <Button onClick={() => clear()}>Clear</Button>
         {api !== Api.PROD && (
           <div style={{ marginLeft: '1em' }}>

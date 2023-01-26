@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 import React from 'react'
-import { Api } from '../components/Api'
+import type { Api } from '../components/Api'
 
 export const useClient = (api: Api, token: string): ApolloClient<object> => {
   return React.useMemo(() => {

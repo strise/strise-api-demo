@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const useLocalStorageState = <T extends string>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] => {
-  const [value, setValue] = React.useState<T>(() => (window.localStorage.getItem(key) as T) ?? defaultValue)
+  const [value, setValue] = React.useState<T>(() => (window.localStorage.getItem(key) as T | undefined) ?? defaultValue)
   return [
     value,
     (valueOrFn: React.SetStateAction<T>) => {

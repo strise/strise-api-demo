@@ -1,11 +1,10 @@
 import React from 'react'
 import { useClient } from './utils/client'
 import { ApolloProvider } from '@apollo/client'
-import { Layout } from 'antd'
 import { useLocalStorageState } from './utils/hooks'
 import { Logo } from './components/Logo'
 import { Api } from './components/Api'
-import { Route, Routes, Navigate, BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Companies } from './pages/Companies'
 import { Users } from './pages/Users'
 import { AppContext } from './components/AppContext'
@@ -13,6 +12,7 @@ import { SettingsDrawer } from './components/SettingsDrawer'
 import { Navigation } from './components/Navigation'
 import { Subscription } from './pages/Subscription'
 import { useDecodeToken } from './utils/authenticationUtils'
+import { Layout } from 'antd'
 
 const Menu = (): React.ReactElement => {
   return (
@@ -35,21 +35,17 @@ const Content = (): React.ReactElement => {
   const decodedToken = useDecodeToken()
   const now = new Date().getTime() / 1000
 
+  if (!decodedToken) return <>Missing token ... Go to settings and paste in a valid one</>
+
+  if (decodedToken.exp < now) return <>Expired token ... Go to settings and paste in a valid one</>
+
   return (
-    <Layout.Content style={{ padding: '0 50px' }}>
-      {!decodedToken ? (
-        <>Missing token ... Go to settings and paste in a valid one</>
-      ) : decodedToken.exp < now ? (
-        <>Expired token ... Go to settings and paste in a valid one</>
-      ) : (
-        <Routes>
-          <Route path='/events' element={<Subscription />} />
-          <Route path='/users' element={<Users />} />
-          <Route path='/companies' element={<Companies />} />
-          <Route path='*' element={<Navigate to='/events' replace />} />
-        </Routes>
-      )}
-    </Layout.Content>
+    <Routes>
+      <Route path='/events' element={<Subscription />} />
+      <Route path='/users' element={<Users />} />
+      <Route path='/companies' element={<Companies />} />
+      <Route path='*' element={<Navigate to='/events' replace />} />
+    </Routes>
   )
 }
 
@@ -59,12 +55,26 @@ const App = (): React.ReactElement => {
   const [token, setToken] = useLocalStorageState<string>('token̈́', '')
   const client = useClient(api, token)
 
+  const values = React.useMemo(
+    () => ({
+      api,
+      setApi,
+      teamId,
+      setTeamId,
+      token,
+      setToken
+    }),
+    [api, setApi, teamId, setTeamId, token, setToken]
+  )
+
   return (
     <ApolloProvider client={client}>
-      <AppContext.Provider value={{ api, setApi, teamId, setTeamId, token, setToken }}>
+      <AppContext.Provider value={values}>
         <BrowserRouter>
           <Menu />
-          <Content />
+          <Layout.Content style={{ padding: '0 50px' }}>
+            <Content />
+          </Layout.Content>
         </BrowserRouter>
       </AppContext.Provider>
     </ApolloProvider>

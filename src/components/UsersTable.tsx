@@ -1,7 +1,7 @@
 import React from 'react'
-import { ColumnsType } from 'antd/lib/table'
+import type { ColumnsType } from 'antd/lib/table'
 import { FilterableTable } from './FilterableTable'
-import { UserFragment } from '../types/graphqlOperationTypes'
+import type { UserFragment } from '../types/graphqlOperationTypes'
 
 const columns: ColumnsType<UserFragment> = [
   {
@@ -17,9 +17,5 @@ const columns: ColumnsType<UserFragment> = [
 ]
 
 export const UsersTable = ({ users }: { users: UserFragment[] }): React.ReactElement => {
-  return (
-    <>
-      <FilterableTable columns={columns} data={users} />
-    </>
-  )
+  return <FilterableTable columns={columns} data={users} />
 }

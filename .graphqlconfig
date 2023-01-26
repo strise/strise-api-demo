@@ -1,0 +1,7 @@
+{
+  "name": "Schema",
+  "schemaPath": "graphqlSchema.graphql",
+  "includes": [
+    "**/graphql/**/*.graphql"
+  ]
+}

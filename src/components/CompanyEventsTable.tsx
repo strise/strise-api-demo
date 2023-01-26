@@ -1,9 +1,9 @@
 import React from 'react'
 import { companyIdToStriseUrl } from '../utils/url'
 import moment from 'moment'
-import { ColumnsType } from 'antd/lib/table'
+import type { ColumnsType } from 'antd/lib/table'
 import { FilterableTable } from './FilterableTable'
-import { CompanyEventBaseFragment, CompanyFragment } from '../types/graphqlOperationTypes'
+import type { CompanyEventBaseFragment, CompanyFragment } from '../types/graphqlOperationTypes'
 
 export const NewTabLink = ({ url, children }: { url: string; children: React.ReactNode }): React.ReactElement => (
   <a href={url} target='_blank' rel='noreferrer'>
@@ -22,7 +22,7 @@ const columns: ColumnsType<CompanyEventBaseFragment> = [
     title: 'Title',
     dataIndex: 'title',
     key: 'title',
-    render: (title, event) => (event.striseUrl ? <NewTabLink url={event.striseUrl}>{title}</NewTabLink> : title)
+    render: (title: string, event) => (event.striseUrl ? <NewTabLink url={event.striseUrl}>{title}</NewTabLink> : <>title</>)
   },
   {
     title: 'Company',

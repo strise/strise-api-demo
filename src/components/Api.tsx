@@ -12,8 +12,8 @@ export const ApiSelect = ({ api, setApi }: { api: Api; setApi: React.Dispatch<Re
 
   return (
     <Select style={{ width: '100%' }} value={api} onChange={onChange}>
-      {Object.entries(Api).map(([name, api]) => (
-        <Select.Option key={api} value={api}>
+      {Object.entries(Api).map(([name, value]) => (
+        <Select.Option key={api} value={value}>
           {name}
         </Select.Option>
       ))}

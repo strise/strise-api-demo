@@ -1,5 +1,5 @@
 import React from 'react'
-import { Api } from './Api'
+import type { Api } from './Api'
 
 interface AppContextInterface {
   token: string
@@ -10,4 +10,5 @@ interface AppContextInterface {
   setApi: React.Dispatch<React.SetStateAction<Api>>
 }
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 export const AppContext = React.createContext({} as AppContextInterface)

@@ -2,7 +2,7 @@ import React from 'react'
 import { AppContext } from '../components/AppContext'
 import { UsersTable } from '../components/UsersTable'
 import { useUsersQuery } from '../utils/graphqlOperations'
-import { UserFragment } from '../types/graphqlOperationTypes'
+import type { UserFragment } from '../types/graphqlOperationTypes'
 
 export const useUsers = (): { users: UserFragment[]; loading: boolean } => {
   const { teamId } = React.useContext(AppContext)

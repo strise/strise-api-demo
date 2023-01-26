@@ -1,6 +1,6 @@
 import React from 'react'
 import { AutoComplete, Button, Input, Tag } from 'antd'
-import { ColumnsType } from 'antd/lib/table'
+import type { ColumnsType } from 'antd/lib/table'
 import { NewTabLink } from './CompanyEventsTable'
 import { companyIdToStriseUrl } from '../utils/url'
 import { FilterableTable } from './FilterableTable'
@@ -9,7 +9,7 @@ import { filterObjects } from '../utils/object'
 import { CloseOutlined, UserAddOutlined } from '@ant-design/icons'
 import { AppContext } from './AppContext'
 import COMPANIES from '../graphql/queries/companies.graphql'
-import { CompanyFragment } from '../types/graphqlOperationTypes'
+import type { CompanyFragment } from '../types/graphqlOperationTypes'
 import { useCompanyAssignMutation, useCompanyUnassignMutation } from '../utils/graphqlOperations'
 
 const CompanyAssign = ({ companyId, assignees }: { companyId: string; assignees: CompanyFragment['assignees'] }): React.ReactElement => {

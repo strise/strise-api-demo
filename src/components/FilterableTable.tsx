@@ -1,5 +1,6 @@
 import React from 'react'
-import { Input, Table, TableProps } from 'antd'
+import { Input, Table } from 'antd'
+import type { TableProps } from 'antd'
 import { filterObjects } from '../utils/object'
 
 export const FilterableTable = <T extends { id: string }>({ data, columns }: { data: T[] } & TableProps<T>): React.ReactElement => {
