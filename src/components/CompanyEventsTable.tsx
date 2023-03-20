@@ -59,12 +59,10 @@ const columns: ColumnsType<CompanyEventBaseFragment> = [
     key: 'trigger',
     render: (_, event) => {
       switch (event.__typename) {
-        case 'AnnouncementEvent':
-          return event.announcementEventTrigger
+        case 'CompanyUpdateEvent':
+          return event.companyUpdateTrigger
         case 'FlagEvent':
           return event.flagEventTrigger
-        case 'CreditEvent':
-          return event.creditEventTrigger
       }
     }
   },
@@ -73,14 +71,6 @@ const columns: ColumnsType<CompanyEventBaseFragment> = [
     key: 'meta',
     render: (_, event) => {
       switch (event.__typename) {
-        case 'AnnouncementEvent':
-          return (
-            <>
-              Code: {event.code}
-              <br />
-              Source: {event.source}
-            </>
-          )
         case 'FlagEvent':
           return (
             <>
@@ -89,7 +79,7 @@ const columns: ColumnsType<CompanyEventBaseFragment> = [
               Severity: {event.severity}
             </>
           )
-        case 'CreditEvent':
+        case 'CompanyUpdateEvent':
           return <>Code: {event.code}</>
       }
     }
