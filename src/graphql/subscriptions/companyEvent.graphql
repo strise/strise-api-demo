@@ -9,14 +9,9 @@ fragment CompanyEventBase on CompanyEvent {
   company {
     ...Company
   }
-  ... on AnnouncementEvent {
+  ... on CompanyUpdateEvent {
     code
-    announcementEventTrigger: trigger
-    source
-  }
-  ... on CreditEvent {
-    code
-    creditEventTrigger: trigger
+    companyUpdateTrigger: trigger
   }
   ... on FlagEvent {
     code
